@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import './App.css';
+import classes from './App.css';
 import Person from './Person/Person.js'
+import ErrorBoundary from './ErrorBoundary/ErrorBoundary.js'
 
 class App extends Component {
 
@@ -36,17 +37,9 @@ class App extends Component {
   };
 
   render() {
-
-    const style = {
-      backgroundColor: 'green',
-      color: "white",
-      border: '1px solid white',
-      padding: "8px",
-      cursor: "pointer",
-    };
     let persons = null;
-    let classes = ['red', 'bold'].join(" ");
-
+    const appClasses = [classes.red, classes.bold].join(" ");
+    let btnClass = '';
     if (this.state.showPersons) {
       persons = (
         <div>
@@ -61,14 +54,17 @@ class App extends Component {
             )
           })}
         </div>
-      )
+      );
+      throw new Error("aaaaa!")
+      btnClass = classes.red;
     }
-    return (
-      <div className="App">
-        <h1 className={classes}>Hi!</h1>
-        <button style = {style} onClick={this.togglePersons}>Switcher</button>
+    return ( <ErrorBoundary>
+      <div className={classes.App}>
+        <h1 className={appClasses}>Hi!</h1>
+        <button className={btnClass} onClick={this.togglePersons}>Switcher</button>
         {persons}
       </div>
+      </ErrorBoundary>
     );
     //   return React.createElement("div", {classname: "App"}, React.createElement("h1", null, "Hi!!!"));
   }

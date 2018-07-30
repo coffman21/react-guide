@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-
+import classes from "./Person.css"
 // class Person extends Component {
 //     name = "Max";
 //     render() {
@@ -10,7 +10,7 @@ import React, {Component} from 'react';
 
 const person = (props) => {
   return (
-    <div className="Person">
+    <div className={classes.Person}>
       <p>Im a {props.name} and {props.age} old.</p>
       <p>{props.children}</p>
       <button onClick={props.delete}>click me</button>
