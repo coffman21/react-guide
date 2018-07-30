@@ -7,12 +7,13 @@ import React, {Component} from 'react';
 //     }
 // }
 
+
 const person = (props) => {
   return (
-    <div>
+    <div className="Person">
       <p>Im a {props.name} and {props.age} old.</p>
       <p>{props.children}</p>
-      <p onClick={props.delete}>click me</p>
+      <button onClick={props.delete}>click me</button>
       <input type="text" onChange={props.change} value={props.name}/>
     </div>
   )
