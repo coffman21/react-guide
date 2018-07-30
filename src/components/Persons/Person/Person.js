@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import classes from "./Person.css"
 // class Person extends Component {
 //     name = "Max";
@@ -11,10 +11,10 @@ import classes from "./Person.css"
 const person = (props) => {
   return (
     <div className={classes.Person}>
-      <p>Im a {props.name} and {props.age} old.</p>
+      <p>Im a {props.name} and im {props.age} yrs old.</p>
       <p>{props.children}</p>
-      <button onClick={props.delete}>click me</button>
-      <input type="text" onChange={props.change} value={props.name}/>
+      <button onClick={props.deleted}>click me</button>
+      <input type="text" onChange={props.changed} value={props.name}/>
     </div>
   )
 };
