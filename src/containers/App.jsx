@@ -7,14 +7,30 @@ import classes from "./App.css";
 
 class App extends Component {
 
-  state = {
-    persons: [
-      {id: '1', name: "Max", age: 1},
-      {id: '2', name: "New", age: 2},
-      {id: '3', name: "q123123", age: 3},
-    ],
-    showPersons: true,
-  };
+  constructor(props) {
+    super(props);
+    console.log("[App.jsx] inside constructor", props);
+    this.state = {
+      persons: [
+        {id: '1', name: "Max", age: 1},
+        {id: '2', name: "New", age: 2},
+        {id: '3', name: "q123123", age: 3},
+      ],
+      showPersons: true,
+    };
+  }
+
+  componentWillMount() {
+    console.log("[App.jsx] inside componentWillMount");
+  }
+
+  componentDidMount() {
+    console.log("[App.jsx] inside componentDidMount");
+  }
+
+  componentWillUnmount() {
+    console.log("[App.jsx] inside componentWillUnmount");
+  }
 
   togglePersons = () => {
     const show = this.state.showPersons;
@@ -39,6 +55,7 @@ class App extends Component {
   };
 
   render() {
+    console.log("[App.js] inside render()");
 
     let persons = <Persons persons={this.state.persons}
                            showPersons={this.state.showPersons}
