@@ -5,7 +5,13 @@ class Person extends Component {
 
   constructor(props) {
     super(props);
+    this.inputElement = React.createRef();
+
     console.log("[Person.jsx] inside constructor", props);
+  }
+
+  focus() {
+    this.inputElement.current.focus();
   }
 
   componentWillMount() {
@@ -14,6 +20,7 @@ class Person extends Component {
 
   componentDidMount() {
     console.log("[Person.jsx] inside componentDidMount");
+
   }
 
   componentWillUnmount() {
@@ -27,7 +34,10 @@ class Person extends Component {
       <p>Im a {this.props.name} and im {this.props.age} yrs old.</p>
       <p>{this.props.children}</p>
       <button onClick={this.props.deleted}>click me</button>
-      <input type="text" onChange={this.props.changed} value={this.props.name}/>
+      <input ref={ this.inputElement }
+             type="text"
+             onChange={this.props.changed}
+             value={this.props.name}/>
     </div>
   }
 }

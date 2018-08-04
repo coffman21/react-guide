@@ -3,7 +3,8 @@ import React, {Component} from 'react';
 import Persons from "../components/Persons/Persons";
 import Cockpit from "../components/Cockpit/Cockpit";
 import classes from "./App.css";
-
+import withClassConf from '../hoc/WithClassConf';
+import Aux from '../hoc/Aux';
 
 class App extends Component {
 
@@ -17,6 +18,7 @@ class App extends Component {
         {id: '3', name: "q123123", age: 3},
       ],
       showPersons: true,
+      toggleClickHandler: 0,
     };
   }
 
@@ -32,10 +34,30 @@ class App extends Component {
     console.log("[App.jsx] inside componentWillUnmount");
   }
 
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   console.log("[App.jsx] inside shouldComponentUpdate", nextProps, nextState);
+  //   return nextProps.persons !== this.props.persons
+  //     && nextProps.showPersons !== this.props.showPersons;
+  // }
+
+  componentWillUpdate(nextProps, nextState) {
+    console.log("[App.jsx] inside componentWillUpdate", nextProps, nextState);
+  }
+
+  componentDidUpdate() {
+    console.log("[App.jsx] inside componentDidUpdate");
+  }
+
+
   togglePersons = () => {
     const show = this.state.showPersons;
-    this.setState({showPersons: !show});
-  };
+    this.setState((prevState, props) => {
+      return {
+        showPersons: !show,
+        toggleClickHandler: this.state.toggleClickHandler + 1
+      }
+    });
+  }
 
   changeHandler = (event, idx) => {
     const personIdx = this.state.persons.findIndex(p => {
@@ -49,9 +71,7 @@ class App extends Component {
   };
 
   deletePersonHandler = (idx) => {
-    const persons = [...this.state.persons];
-    persons.splice(idx, 1);
-    this.setState({persons: persons})
+    this.setState({persons: [...this.state.persons].splice(idx, 1)})
   };
 
   render() {
@@ -67,13 +87,18 @@ class App extends Component {
                            clicked={this.togglePersons}/>;
 
     return (
-      <div className={classes.App}>
+      <Aux>
+        <button onClick={() => {
+          this.setState({showPersons: true})
+        }}>Show Persons
+        </button>
+        <p>{this.state.toggleClickHandler}</p>
         {cockpit}
         {persons}
-      </div>
+      </Aux>
     );
   }
 
 }
 
-export default App;
+export default withClassConf(App, classes.App);
